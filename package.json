@@ -1,0 +1,25 @@
+{
+    "name": "rtrt-syntax",
+    "displayName": "RTRT syntax",
+    "description": "Adds syntax highlighting for the rtscript language, used in .ptu files in RTRT",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.69.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "rtscript",
+            "aliases": ["rtscript", "ptu", "rtrt"],
+            "extensions": [".ptu"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "rtscript",
+            "scopeName": "source.rtscript",
+            "path": "./syntaxes/rtscript.tmLanguage.json"
+        }]
+    }
+}

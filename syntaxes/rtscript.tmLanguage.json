@@ -1,0 +1,162 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "rtscript",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#environment"
+        },
+        {
+            "include": "#service"
+        },
+        {
+            "include": "#test"
+        },
+        {
+            "include": "#element"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#embedded_code"
+        },
+        {
+            "include": "#storage"
+        },
+        {
+            "include": "#invalid"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [{
+                "name": "keyword.other.rtscript",
+                "match": "\\b(HEADER|BEGIN|FAMILY)\\b"
+            },{
+                "name":"keyword.control.rtscript",
+                "match": "(INIT|init|EV|ev|DELTA|delta)\\b"
+            }]
+        },
+        "strings": {
+            "name": "string.quoted.double.rtscript",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [{
+                "name": "constant.character.escape.rtscript",
+                "match": "\\\\."
+            }]
+        },
+        "comments":{
+            "name":"comment.line.double-dash.rtscript",
+            "begin": "--",
+            "end": "\\n"
+        },
+        "embedded_code":{
+            "name": "markup.italic",
+            "begin": "#",
+            "end": "\\n",
+            "patterns": [{
+                "include": "source.c"
+            }]
+        },
+        "storage":{
+            "patterns": [{
+                "name": "storage.type.rtscript",
+                "match": "\\b(ARR|VAR|STR|ARRAY|STRUCTURE|VARIABLE)\\b"
+            }]
+        },
+        "invalid":{
+            "begin": "<",
+            "end": ">",
+            "name":"invalid"
+        },
+        "service":{
+            "begin": "^\\s*(SERVICE)\\s+([A-z0-9_]+)\\b",
+            "end": "^\\s*(END\\s+SERVICE)\\b",
+            "beginCaptures": {
+                "1":{
+                    "name":"storage.type.class.rtscript"
+                },
+                "2":{
+                    "name":"entity.name.class.rtscript"
+                }
+            },
+            "endCaptures": {
+                "1":{
+                    "name":"storage.type.class.rtscript"
+                }
+            },
+            "contentName":"meta.service.rtscript",
+            "patterns": [{
+                "include": "$self"
+            }]
+        },
+        "test":{
+            "begin": "^\\s*(TEST)\\s+([A-z0-9_]+)\\b",
+            "end": "^\\s*(END\\s+TEST)\\b",
+            "beginCaptures": {
+                "1":{
+                    "name":"storage.type.function.rtscript"
+                },
+                "2":{
+                    "name":"entity.name.function.rtscript"
+                }
+            },
+            "endCaptures": {
+                "1":{
+                    "name":"storage.type.function.rtscript"
+                }
+            },
+            "contentName":"meta.test.rtscript",
+            "patterns": [{
+                "include": "$self"
+            }]
+        },
+        "element":{
+            "begin": "^\\s*(ELEMENT)\\b",
+            "end": "^\\s*(END\\s+ELEMENT)\\b",
+            "beginCaptures": {
+                "1":{
+                    "name":"storage.type.element.begin.rtscript"
+                }
+            },
+            "endCaptures": {
+                "1":{
+                    "name":"storage.type.element.end.rtscript"
+                }
+            },
+            "contentName":"meta.element.rtscript",
+            "patterns": [{
+                "include": "$self"
+            }]
+        },
+        "environment":{
+            "begin": "^\\s*(ENVIRONMENT)\\s+([A-z0-9_]+)\\b",
+            "end": "^\\s*(END\\s+ENVIRONMENT)\\b",
+            "beginCaptures": {
+                "1":{
+                    "name":"storage.type.environment.begin.rtscript"
+                },
+                "2":{
+                    "name":"entity.name.environment.rtscript"
+                }
+            },
+            "endCaptures": {
+                "1":{
+                    "name":"storage.type.environment.end.rtscript"
+                }
+            },
+            "contentName":"meta.environment.rtscript",
+            "patterns": [{
+                "include": "$self"
+            }]
+        }
+    },
+    "scopeName": "source.rtscript"
+}
