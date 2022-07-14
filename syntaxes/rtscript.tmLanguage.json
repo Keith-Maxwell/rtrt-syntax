@@ -6,6 +6,18 @@
             "include": "#comments"
         },
         {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#embedded"
+        },
+        {
+            "include": "#unnamed_storage"
+        },
+        {
             "include": "#environment"
         },
         {
@@ -15,19 +27,10 @@
             "include": "#test"
         },
         {
-            "include": "#element"
+            "include": "#stubs"
         },
         {
-            "include": "#keywords"
-        },
-        {
-            "include": "#strings"
-        },
-        {
-            "include": "#embedded_code"
-        },
-        {
-            "include": "#storage"
+            "include": "#variables"
         },
         {
             "include": "#invalid"
@@ -35,127 +38,195 @@
     ],
     "repository": {
         "keywords": {
-            "patterns": [{
-                "name": "keyword.other.rtscript",
-                "match": "\\b(HEADER|BEGIN|FAMILY)\\b"
-            },{
-                "name":"keyword.control.rtscript",
-                "match": "(INIT|init|EV|ev|DELTA|delta)\\b"
-            }]
+            "patterns": [
+                {
+                    "name": "keyword.other.rtscript",
+                    "match": "\\b(HEADER|BEGIN|FAMILY|INCLUDE|PTU)\\b"
+                },
+                {
+                    "name": "keyword.control.rtscript",
+                    "match": "\\b(INIT|init|EV|ev|DELTA|delta|STUB|stub)\\b"
+                },
+                {
+                    "name": "keyword.operator",
+                    "match": "\\b(in|with)\\b"
+                },
+                {
+                    "name": "constant.language",
+                    "match": "(?<=(SERVICE_TYPE|FAMILY))\\s+(Nominal|Robustness|Coverage|extern)\\b",
+                    "comment": "matches only after a keyword"
+                }
+            ]
         },
         "strings": {
             "name": "string.quoted.double.rtscript",
             "begin": "\"",
             "end": "\"",
-            "patterns": [{
-                "name": "constant.character.escape.rtscript",
-                "match": "\\\\."
-            }]
+            "patterns": [
+                {
+                    "name": "constant.character.escape.rtscript",
+                    "match": "\\\\."
+                }
+            ]
         },
-        "comments":{
-            "name":"comment.line.double-dash.rtscript",
+        "comments": {
+            "name": "comment.line.double-dash.rtscript",
             "begin": "--",
             "end": "\\n"
         },
-        "embedded_code":{
+        "embedded": {
+            "comment": "all lines starting with # or @ are in c language and italic",
             "name": "markup.italic",
-            "begin": "#",
+            "begin": "(#|@)",
             "end": "\\n",
-            "patterns": [{
-                "include": "source.c"
-            }]
+            "beginCaptures": {
+                "1": {
+                    "name": "constant.character"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.c"
+                }
+            ]
         },
-        "storage":{
-            "patterns": [{
-                "name": "storage.type.rtscript",
-                "match": "\\b(ARR|VAR|STR|ARRAY|STRUCTURE|VARIABLE)\\b"
-            }]
+        "variables": {
+            "patterns": [
+                {
+                    "name": "storage.type.var.rtscript",
+                    "match": "\\b(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE)\\b",
+                    "comment": "match the type"
+                },
+                {
+                    "name": "variable.parameter.rtscript",
+                    "match": "(?<=(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE))\\s+(\\w+)",
+                    "comment": "match the name of the variable"
+                }
+            ]
         },
-        "invalid":{
-            "begin": "<",
-            "end": ">",
-            "name":"invalid"
-        },
-        "service":{
-            "begin": "^\\s*(SERVICE)\\s+([A-z0-9_]+)\\b",
+        "service": {
+            "comment": "match a named Service",
+            "begin": "^\\s*(SERVICE)\\s+(\\w+)\\b",
             "end": "^\\s*(END\\s+SERVICE)\\b",
             "beginCaptures": {
-                "1":{
-                    "name":"storage.type.class.rtscript"
+                "1": {
+                    "name": "storage.type.class.rtscript"
                 },
-                "2":{
-                    "name":"entity.name.class.rtscript"
+                "2": {
+                    "name": "entity.name.class.rtscript"
                 }
             },
             "endCaptures": {
-                "1":{
-                    "name":"storage.type.class.rtscript"
+                "1": {
+                    "name": "storage.type.class.rtscript"
                 }
             },
-            "contentName":"meta.service.rtscript",
-            "patterns": [{
-                "include": "$self"
-            }]
+            "contentName": "meta.service.rtscript",
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ]
         },
-        "test":{
-            "begin": "^\\s*(TEST)\\s+([A-z0-9_]+)\\b",
+        "test": {
+            "comment": "match a named Test",
+            "begin": "^\\s*(TEST)\\s+(\\w+)\\b",
             "end": "^\\s*(END\\s+TEST)\\b",
             "beginCaptures": {
-                "1":{
-                    "name":"storage.type.function.rtscript"
+                "1": {
+                    "name": "storage.type.function.begin.rtscript"
                 },
-                "2":{
-                    "name":"entity.name.function.rtscript"
+                "2": {
+                    "name": "entity.name.function.rtscript"
                 }
             },
             "endCaptures": {
-                "1":{
-                    "name":"storage.type.function.rtscript"
+                "1": {
+                    "name": "storage.type.function.end.rtscript"
                 }
             },
-            "contentName":"meta.test.rtscript",
-            "patterns": [{
-                "include": "$self"
-            }]
+            "contentName": "meta.test.rtscript",
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ]
         },
-        "element":{
-            "begin": "^\\s*(ELEMENT)\\b",
-            "end": "^\\s*(END\\s+ELEMENT)\\b",
+        "unnamed_storage": {
+            "begin": "^\\s*(ELEMENT|INITIALIZATION|TERMINATION)\\b",
+            "end": "^\\s*(END\\s+\\1)\\b",
             "beginCaptures": {
-                "1":{
-                    "name":"storage.type.element.begin.rtscript"
+                "1": {
+                    "name": "storage.type.element.begin.rtscript"
                 }
             },
             "endCaptures": {
-                "1":{
-                    "name":"storage.type.element.end.rtscript"
+                "1": {
+                    "name": "storage.type.element.end.rtscript"
                 }
             },
-            "contentName":"meta.element.rtscript",
-            "patterns": [{
-                "include": "$self"
-            }]
+            "contentName": "meta.unnamed_storage.rtscript",
+            "patterns": [
+                {
+                    "include": "$self"
+                }
+            ]
         },
-        "environment":{
-            "begin": "^\\s*(ENVIRONMENT)\\s+([A-z0-9_]+)\\b",
+        "environment": {
+            "begin": "^\\s*(ENVIRONMENT)\\s+(\\w+)\\b",
             "end": "^\\s*(END\\s+ENVIRONMENT)\\b",
             "beginCaptures": {
-                "1":{
-                    "name":"storage.type.environment.begin.rtscript"
+                "1": {
+                    "name": "storage.type.environment.begin.rtscript"
                 },
-                "2":{
-                    "name":"entity.name.environment.rtscript"
+                "2": {
+                    "name": "entity.name.tag.rtscript"
                 }
             },
             "endCaptures": {
-                "1":{
-                    "name":"storage.type.environment.end.rtscript"
+                "1": {
+                    "name": "storage.type.environment.end.rtscript"
                 }
             },
-            "contentName":"meta.environment.rtscript",
-            "patterns": [{
-                "include": "$self"
-            }]
+            "contentName": "meta.environment.rtscript",
+            "patterns": [
+                {
+                    "include": "$self"
+                },
+                {            "include": "#stubs"
+            }
+            ]
+        },
+        "stubs": {
+            "patterns": [
+                {
+                    "begin": "^\\s*(DEFINE\\s+STUB)\\s+([\\w\\.]+)\\b",
+                    "end": "^\\s*(END\\s+DEFINE)\\b",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.other.environment.begin.rtscript"
+                        },
+                        "2": {
+                            "name": "entity.name.function"
+                        }
+                    },
+                    "endCaptures": {
+                        "1": {
+                            "name": "keyword.other.environment.end.rtscript"
+                        }
+                    },
+                    "contentName": "meta.environment.rtscript",
+                    "patterns": [
+                        {
+                            "include": "$self"
+                        }
+                    ]
+                },
+                {
+                    "match": "(?<=STUB)\\s+([\\w.]+)\\b",
+                    "name":"entity.name.function"
+                }
+            ]
         }
     },
     "scopeName": "source.rtscript"
