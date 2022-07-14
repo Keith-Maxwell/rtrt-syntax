@@ -1,0 +1,140 @@
+HEADER NAME_OF_TESTED_FILE, ,
+
+##include "FILE1.h"
+##include "FILE2.h"
+##include "FILE3.h"
+
+
+BEGIN
+
+INCLUDE PTU ../another_file.ptu
+
+-- input declaration
+#uint32_t var1;
+#bool_t flag;
+
+-- inout declaration
+#float64_t table[2];
+
+-- output declaration
+#struct Output;
+
+-- Return Values
+#return_code_t ReturnCode;
+
+
+DEFINE STUB NAME_OF_STUB_GROUP.1
+
+    #uint32_t stubbed_function1 (float64_t _in X);
+
+END DEFINE
+
+DEFINE STUB NAME_OF_STUB_GROUP.2
+
+    #return_code_t stubbed_function12 (uint32_t _in Y);
+
+END DEFINE
+
+--------------------------------------------------------------------------------
+--
+-- ENVIRONMENT DECLARATIONS
+--
+--------------------------------------------------------------------------------
+ENVIRONMENT ENV_1
+
+    VAR var1, init=0, ev=init
+
+    VAR flag, init=1, ev=init
+
+    ARRAY table, init={35, 35}, ev={42, 42}
+
+    STR Output, init=0, ev=555
+
+END ENVIRONMENT -- ENV_1
+
+ENVIRONMENT ENV_2
+
+    STUB stubbed_function1 1 => (273658.12) 12
+
+    STUB stubbed_function2 1..200 => (0) True
+
+END ENVIRONMENT -- ENV_2
+
+
+INITIALIZATION
+    #bla = random_call(true);
+END INITIALIZATION
+
+-- --------------------------------------------------------
+
+SERVICE NAME_OF_SERVICE_1
+SERVICE_TYPE extern
+
+    TEST Test_pass
+        FAMILY Nominal
+        ELEMENT
+            COMMENT this is report comment
+
+            USE ENV_1
+            USE ENV_2
+
+            ARRAY table, init={0, 0}, ev=init
+
+            STR Output, init==, ev={21, 45}, delta = 1e-12%
+
+            #ReturnCode = tested_function(var1, flag, &table[0], &Output);
+
+            #ErrorCode = 0;
+            VAR ReturnCode, init = 666, ev = ErrorCode
+
+        END ELEMENT
+
+    END TEST
+
+END SERVICE
+
+--------------------------------------------------------------------------
+
+SERVICE NAME_OF_SERVICE_2
+SERVICE_TYPE extern
+
+    TEST Test_Fail_1
+        FAMILY Robustness
+        ELEMENT
+
+            USE ENV_1
+
+            ARRAY table, init={0, 0}, ev=init
+            STR Output, init=0, ev=init
+
+            STUB stubbed_function1 1=> (65364.8576) EV3_NO_ERR
+            STUB stubbed_function2 1=> (False) False
+
+            #ReturnCode = tested_function(var1, flag, &table[0], &Output);
+            VAR ReturnCode, init = 666, ev = 65323
+
+        END ELEMENT
+    END TEST
+
+    TEST Test_Fail_2
+        FAMILY Robustness
+        ELEMENT
+
+            USE ENV_1
+
+            ARRAY table, init={0, 0}, ev=init
+            STR Output.element1, init=0, ev=init
+            VAR Output.element2, init=0, ev=init
+            VAR Output.element3[0..10][0..10], init=0, ev=-1
+
+            #ReturnCode = tested_function(var1, flag, &table[0], &Output);
+            VAR ReturnCode, init = 666, ev = 65323
+
+        END ELEMENT
+    END TEST
+
+END SERVICE
+
+TERMINATION
+    #bla = blabla(true);
+END TERMINATION

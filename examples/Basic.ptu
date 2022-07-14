@@ -1,0 +1,40 @@
+HEADER add, 1, 1
+
+-- this is a comment
+# /* c comment */
+
+<variable declarations for the test script>
+
+ENVIRONMENT name_of_env
+    VAR x, init = 2, ev = 7
+    STUB API_math_abs(x) EV3_NO_ERR
+END ENVIRONMENT
+
+BEGIN
+
+SERVICE add
+
+<local variable declarations for the service>
+
+    TEST Test_name_66
+
+    FAMILY nominal
+
+    # /* This is some C code */
+    # int float double var = 17;
+    # float x = API_math_abs(x)
+
+    ELEMENT
+
+        VAR variable1, INIT=0, EV=0, DELTA=1e-4%
+
+        VAR variable2, INIT=0, EV=0
+        "this is a string "
+
+        #<call to the procedure under test>
+
+    END ELEMENT
+
+    END TEST
+
+END SERVICE
