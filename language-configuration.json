@@ -31,17 +31,8 @@
     ],
     "folding": {
         "markers": {
-            "start": "^\\s*TEST\\b|^\\s*SERVICE\\b|^\\s*ELEMENT\\b|^\\s*DEFINE\\b|^\\s*ENVIRONMENT\\b",
-            "end": "^\\s*END\\s+TEST\\b|^\\s*END\\s+SERVICE\\b|^\\s*END\\s+ELEMENT\\b|^\\s*END\\s+DEFINE\\b|^\\s*END\\s+ENVIRONMENT\\b"
+            "start": "^\\s*(TEST|test|SERVICE|service|ELEMENT|element|DEFINE|define|ENVIRONMENT|environment|INITIALIZATION|initialization|TERMINATION|termination)\\b",
+            "end": "^\\s*(END|end)"
         }
-    },
-    "onEnterRules": [
-        {
-            "beforeText": "^\\s*SERVICE\\s+.+",
-            "action": {
-                "indent": "indentOutdent",
-                "appendText": "\nEND SERVICE"
-            }
-        }
-    ]
+    }
 }

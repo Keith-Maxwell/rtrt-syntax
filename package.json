@@ -3,6 +3,14 @@
     "displayName": "RTRT syntax",
     "description": "Adds syntax highlighting for the rtscript language, used in .ptu files in RTRT",
     "version": "0.0.1",
+    "author": "Max Perraudin",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Keith-Maxwell/rtrt-syntax"
+    },
+    "bugs": "https://github.com/Keith-Maxwell/rtrt-syntax/issues",
+    "readme": "README.md",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.69.0"
     },

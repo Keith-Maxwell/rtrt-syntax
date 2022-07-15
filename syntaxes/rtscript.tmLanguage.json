@@ -41,20 +41,15 @@
             "patterns": [
                 {
                     "name": "keyword.other.rtscript",
-                    "match": "\\b(HEADER|BEGIN|FAMILY|INCLUDE|PTU)\\b"
+                    "match": "(?i)\\b(HEADER|BEGIN|FAMILY|INCLUDE|PTU)\\b"
                 },
                 {
                     "name": "keyword.control.rtscript",
-                    "match": "\\b(INIT|init|EV|ev|DELTA|delta|STUB|stub)\\b"
+                    "match": "(?i)\\b(INIT|EV|DELTA|STUB|USE|IF|ELSE|NEXT_TEST|EXCEPTION)\\b"
                 },
                 {
                     "name": "keyword.operator",
-                    "match": "\\b(in|with)\\b"
-                },
-                {
-                    "name": "constant.language",
-                    "match": "(?<=(SERVICE_TYPE|FAMILY))\\s+(Nominal|Robustness|Coverage|extern)\\b",
-                    "comment": "matches only after a keyword"
+                    "match": "(?i)\\b(in|with)\\b"
                 }
             ]
         },
@@ -70,9 +65,20 @@
             ]
         },
         "comments": {
-            "name": "comment.line.double-dash.rtscript",
-            "begin": "--",
-            "end": "\\n"
+            "patterns": [
+                {
+                    "name": "comment.line.double-dash.rtscript",
+                    "begin": "--",
+                    "end": "\\n"
+                },
+                {
+                    "match": "(?i)^\\s*(COMMENT)\\s*(.*)\\n",
+                    "captures": {
+                        "1":{"name":"keyword.other.rtscript"},
+                        "2":{"name":"comment.line.rtscript"}
+                    }
+                }
+            ]
         },
         "embedded": {
             "comment": "all lines starting with # or @ are in c language and italic",
@@ -94,20 +100,20 @@
             "patterns": [
                 {
                     "name": "storage.type.var.rtscript",
-                    "match": "\\b(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE)\\b",
+                    "match": "(?i)\\b(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE)\\b",
                     "comment": "match the type"
                 },
                 {
                     "name": "variable.parameter.rtscript",
-                    "match": "(?<=(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE))\\s+(\\w+)",
+                    "match": "(?i)(?<=(ARR|ARRAY|VAR|VARIABLE|STR|STRUCTURE))\\s+([\\w\\.]+)",
                     "comment": "match the name of the variable"
                 }
             ]
         },
         "service": {
             "comment": "match a named Service",
-            "begin": "^\\s*(SERVICE)\\s+(\\w+)\\b",
-            "end": "^\\s*(END\\s+SERVICE)\\b",
+            "begin": "(?i)^\\s*(SERVICE)\\s+(\\w+)\\b",
+            "end": "(?i)^\\s*(END\\s+SERVICE)\\b",
             "beginCaptures": {
                 "1": {
                     "name": "storage.type.class.rtscript"
@@ -130,8 +136,8 @@
         },
         "test": {
             "comment": "match a named Test",
-            "begin": "^\\s*(TEST)\\s+(\\w+)\\b",
-            "end": "^\\s*(END\\s+TEST)\\b",
+            "begin": "(?i)^\\s*(TEST)\\s+(\\w+)\\b",
+            "end": "(?i)^\\s*(END\\s+TEST)\\b",
             "beginCaptures": {
                 "1": {
                     "name": "storage.type.function.begin.rtscript"
@@ -153,8 +159,8 @@
             ]
         },
         "unnamed_storage": {
-            "begin": "^\\s*(ELEMENT|INITIALIZATION|TERMINATION)\\b",
-            "end": "^\\s*(END\\s+\\1)\\b",
+            "begin": "(?i)^\\s*(ELEMENT|INITIALIZATION|TERMINATION)\\b",
+            "end": "(?i)^\\s*(END\\s+\\1)\\b",
             "beginCaptures": {
                 "1": {
                     "name": "storage.type.element.begin.rtscript"
@@ -173,8 +179,8 @@
             ]
         },
         "environment": {
-            "begin": "^\\s*(ENVIRONMENT)\\s+(\\w+)\\b",
-            "end": "^\\s*(END\\s+ENVIRONMENT)\\b",
+            "begin": "(?i)^\\s*(ENVIRONMENT)\\s+(\\w+)\\b",
+            "end": "(?i)^\\s*(END\\s+ENVIRONMENT)\\b",
             "beginCaptures": {
                 "1": {
                     "name": "storage.type.environment.begin.rtscript"
@@ -200,8 +206,8 @@
         "stubs": {
             "patterns": [
                 {
-                    "begin": "^\\s*(DEFINE\\s+STUB)\\s+([\\w\\.]+)\\b",
-                    "end": "^\\s*(END\\s+DEFINE)\\b",
+                    "begin": "(?i)^\\s*(DEFINE\\s+STUB)\\s+([\\w\\.]+)\\b",
+                    "end": "(?i)^\\s*(END\\s+DEFINE)\\b",
                     "beginCaptures": {
                         "1": {
                             "name": "keyword.other.environment.begin.rtscript"
@@ -223,7 +229,7 @@
                     ]
                 },
                 {
-                    "match": "(?<=STUB)\\s+([\\w.]+)\\b",
+                    "match": "(?i)(?<=STUB)\\s+([\\w.]+)\\b",
                     "name":"entity.name.function"
                 }
             ]
