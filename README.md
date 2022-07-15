@@ -1,10 +1,11 @@
 # rtrt-syntax README
 
-This extension adds support for the `rtscript` language (by IBM RTRT). It offers syntax highlighting for `.ptu` files.
+This extension adds support for the `rtscript` language (by IBM RTRT). It offers syntax highlighting for `.ptu` files, as well some useful snippets.
 
 ## Features
 
-Adds syntax highlighting for most keywords, tags and variables used in `.ptu` files.
+- Adds syntax highlighting for most keywords, tags and variables used in `.ptu` files.
+- Adds a bunch of Snippets to auto-close/fill tags.
 
 ![Overview](images/Overview-rtscript-syntax.png)
 

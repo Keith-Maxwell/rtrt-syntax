@@ -28,6 +28,12 @@
             "language": "rtscript",
             "scopeName": "source.rtscript",
             "path": "./syntaxes/rtscript.tmLanguage.json"
-        }]
+        }],
+        "snippets": [
+            {
+                "language": "rtscript",
+                "path": "./snippets/snippets.json"
+            }
+        ]
     }
 }

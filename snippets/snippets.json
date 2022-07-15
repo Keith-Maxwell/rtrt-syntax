@@ -1,0 +1,102 @@
+{
+	"New service": {
+		"scope": "rtscript",
+		"prefix": "service",
+		"body": [
+			"SERVICE ${1:name}",
+			"SERVICE_TYPE extern",
+			"\t$2",
+			"END SERVICE -- ${1:name}"
+		],
+		"description": "Create a new service with its name at the begining and end"
+	},
+	"New test": {
+		"scope": "rtscript",
+		"prefix": "test",
+		"body": [
+			"TEST ${1:<name>}",
+			"\tFAMILY ${2:Nominal}",
+			"\t$3",
+			"END TEST -- ${1:<name>}"
+		],
+		"description": "Create a new test with its name at the begining and end"
+	},
+	"New element": {
+		"scope": "rtscript",
+		"prefix": "element",
+		"body": [
+			"ELEMENT",
+			"\t",
+			"\tUSE ${1:<environment_name>}",
+			"\t",
+			"\t${2:<test_variables>}",
+			"\t",
+			"\t${3:<stub_calls>}",
+			"\t",
+			"\t#${4:<tested_function_call>}",
+			"\t",
+			"END ELEMENT"
+		],
+		"description": "Create a new element"
+	},
+	"New environment": {
+		"scope": "rtscript",
+		"prefix": "environment",
+		"body": [
+			"ENVIRONMENT ${1:<environment_name>}",
+			"\t",
+			"END ENVIRONMENT -- ${1:<environment_name>}"
+		],
+		"description": "Create a new environment"
+	},
+	"New test variable":{
+		"scope":"rtscript",
+		"prefix":"var",
+		"body":"${1:<TYPE>} ${2:Name}, init = ${3:<init_value>}, ev = ${4:<ev_value>}",
+		"description":"Create a new variable with empty fields"
+	},
+	"Stub call":{
+		"scope":"rtscript",
+		"prefix":"stub",
+		"body":"STUB ${1:<func_name>} ${2:1} => ($3) $4",
+		"description":"Create a new stub call"
+	},
+	"Stub definition":{
+		"scope": "rtscript",
+		"prefix": "defstub",
+		"body": [
+			"DEFINE STUB ${1:<stub_group_name>}",
+			"\t",
+			"\t#$2",
+			"\t",
+			"END DEFINE -- ${1:<stub_group_name>}"
+		],
+		"description": "Define a new stub group"
+	},
+	"Include H file":{
+		"scope":"rtscript",
+		"prefix":"#include",
+		"body":"##include \"${1:<file>}.h\"",
+		"description": "Include a H file in the PTU"
+	},
+	"New Initialization":{
+		"scope":"rtscript",
+		"prefix":"initialization",
+		"body":[
+			"INITIALIZATION",
+			"\t#$1",
+			"END INITIALIZATION"
+		],
+		"description": "Create a new INITIALIZATION block"
+	},
+	"New termination":{
+		"scope":"rtscript",
+		"prefix":"termination",
+		"body":[
+			"TERMINATION",
+			"\t#$1",
+			"END TERMINATION"
+		],
+		"description": "Create a new TERMINATION block"
+	}
+}
