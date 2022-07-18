@@ -7,9 +7,9 @@ This extension adds support for the `rtscript` language (by IBM RTRT). It offers
 - Adds syntax highlighting for most keywords, tags and variables used in `.ptu` files.
 - Adds a bunch of Snippets to auto-close/fill tags.
 
-![Overview](images/Overview-rtscript-syntax.png)
+### Preview
 
----
+![Overview](images/Overview-rtscript-syntax.png)
 
 <!-- ## Requirements
 
@@ -29,9 +29,15 @@ This extension contributes the following settings:
 <!-- ## Known Issues
 
 Calling out known issues can help limit users opening duplicate issues against your extension. -->
+---
 
 ## Release Notes
 
-Soon...
+### Version 1.0.0
+
+Initial release:
+
+- syntax highlighting
+- Snippets
 
 ---

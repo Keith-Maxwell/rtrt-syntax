@@ -6,4 +6,9 @@ All notable changes to the "RTRT-syntax" extension will be documented in this fi
 
 ## [Unreleased]
 
-- Initial release
+## [1.0.0] - 2022/07/18
+
+### Added
+
+- Syntax Highlighting
+- Snippets

@@ -2,21 +2,24 @@
     "name": "rtrt-syntax",
     "displayName": "RTRT syntax",
     "description": "Adds syntax highlighting for the rtscript language, used in .ptu files in RTRT",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "author": "Max Perraudin",
+    "publisher": "max-per",
+    "engines": {
+        "vscode": "^1.69.0"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/Keith-Maxwell/rtrt-syntax"
     },
     "bugs": "https://github.com/Keith-Maxwell/rtrt-syntax/issues",
+    "icon": "rtrt-syntax_icon_128px.png",
     "readme": "README.md",
     "license": "MIT",
-    "engines": {
-        "vscode": "^1.69.0"
-    },
     "categories": [
-        "Programming Languages"
+        "Programming Languages", "Snippets"
     ],
+    "keywords": ["rtrt", "ptu", "rtscript", "syntax", "highlight"],
     "contributes": {
         "languages": [{
             "id": "rtscript",
