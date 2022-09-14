@@ -84,7 +84,7 @@
             "comment": "all lines starting with # or @ are in c language and italic",
             "name": "markup.italic",
             "begin": "(#|@)",
-            "end": "\\n",
+            "end": "\\n[^#@]",
             "beginCaptures": {
                 "1": {
                     "name": "constant.character"
